@@ -1,0 +1,1 @@
+DROP_COLUMNS = ['GarageYrBlt', 'YrSold', 'Exterior2nd', 'PoolQC']
