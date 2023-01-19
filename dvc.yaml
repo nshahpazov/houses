@@ -1,0 +1,29 @@
+stages:
+  get_data:
+    cmd: dvc pull
+    outs:
+      - data/raw/train.csv
+      - data/raw/test.csv
+      - data/raw/data_description.txt
+      - data/raw/sample_submission.csv
+
+  preprocess:
+    cmd: make preprocess
+    deps:
+    - src/preprocess.py
+    - Makefile
+    outs:
+    - data/interim/train.csv
+    - data/interim/test.csv
+  
+  # train:
+  #   cmd: python train.py
+  #   deps:
+  #   - train.py
+  #   - data_processed.csv
+  #   outs:
+  #   - by_region.png
+  #   metrics:
+  #   - metrics.json:
+  #       cache: false
+ 
