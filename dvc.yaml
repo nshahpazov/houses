@@ -1,12 +1,4 @@
 stages:
-  get_data:
-    cmd: dvc pull
-    outs:
-      - data/raw/train.csv
-      - data/raw/test.csv
-      - data/raw/data_description.txt
-      - data/raw/sample_submission.csv
-
   preprocess:
     cmd: make preprocess
     deps:
@@ -15,15 +7,23 @@ stages:
     outs:
     - data/interim/train.csv
     - data/interim/test.csv
+
+  prepare_train_data:
+    cmd: python src/prepare_train_data.py --train_size=0.9
+    deps:
+    - src/prepare_train_data.py
+    outs:
+    - data/model_input/x_train.csv
+    - data/model_input/y_train.csv
+    - data/model_input/x_test.csv
+    - data/model_input/y_test.csv
   
-  # train:
-  #   cmd: python train.py
-  #   deps:
-  #   - train.py
-  #   - data_processed.csv
-  #   outs:
-  #   - by_region.png
-  #   metrics:
-  #   - metrics.json:
-  #       cache: false
+  train:
+    cmd: python src/train.py
+    deps:
+    - src/train.py
+    - data/model_input/x_train.csv
+    - data/model_input/y_train.csv
+    outs:
+    - data/models/model.pickle
  

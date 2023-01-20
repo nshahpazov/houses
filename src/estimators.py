@@ -2,6 +2,51 @@
 
 from sklearn.base import BaseEstimator, TransformerMixin
 import numpy as np
+import pandas as pd
+
+class RareCategoriesReplacer(BaseEstimator, TransformerMixin):
+    """
+    Replaces Categorical Columns rare values with a keyword
+    """
+    def __init__(self, threshold=0.05, keyword: str='Other') -> None:
+        self.keyword = keyword
+        self.threshold = threshold
+        self.proportions = []
+
+
+    def get_proportions(self, X):
+        """
+        Get the proportions of the keywords in the categorical columns
+        """
+        counts = [pd.Series(x).value_counts(normalize=True) for x in X.T]
+        return counts
+
+
+    def fit(self, X, y=None):
+        """Fit the rare categorical transformer"""
+        # pylint: disable=unused-argument
+        is_df = isinstance(X, pd.DataFrame)
+        self.proportions = self.get_proportions(X.values if is_df else X)
+        return self
+
+
+    def is_to_replace(self, i, col):
+        """calculate keywords to replace by a given column"""
+        props = self.proportions[i]
+        rares = props[props < self.threshold].index.values
+        new_ones = np.setdiff1d(col, props.index)
+        is_rare = np.isin(col, rares)
+        is_new_one = np.isin(col, new_ones)
+        return is_rare | is_new_one
+
+
+    def transform(self, X) -> pd.DataFrame:
+        """Transform the rare categorical transformer"""
+        is_df = isinstance(X, pd.DataFrame)
+        Xt = X.values.copy() if is_df else X.values.copy()
+        for i, col in enumerate(Xt.T):
+            col[self.is_to_replace(i, col)] = self.keyword
+        return Xt
 
 
 class Pandalizer(BaseEstimator, TransformerMixin):
