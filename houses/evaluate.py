@@ -72,7 +72,7 @@ def evaluate(
 def generate_feature_importance_plot(model, X_val: pd.DataFrame, y_val: pd.Series):
     scoring = ['neg_mean_squared_error']
     r_multi = permutation_importance(
-        model, X_val, y_val, n_repeats=5, random_state=0, scoring=scoring,
+        model, X_val, y_val, n_repeats=6, random_state=0, scoring=scoring,
     )
     importances_df = pd.DataFrame(
         r_multi["neg_mean_squared_error"]["importances"].T,

@@ -1,6 +1,7 @@
 stages:
   preprocess:
-    cmd: make preprocess
+    cmd: python ./houses/preprocess.py data/raw/train.csv data/interim/train.csv &
+         python ./houses/preprocess.py data/raw/test.csv data/interim/test.csv
     deps:
     - src/preprocess.py
     - Makefile
@@ -9,9 +10,9 @@ stages:
     - data/interim/test.csv
 
   prepare_train_data:
-    cmd: python src/prepare_train_data.py --train_size=0.9
+    cmd: python houses/prepare_train_data.py --train_size=0.9
     deps:
-    - src/prepare_train_data.py
+    - houses/prepare_train_data.py
     outs:
     - data/model_input/x_train.csv
     - data/model_input/y_train.csv
@@ -19,18 +20,18 @@ stages:
     - data/model_input/y_test.csv
   
   train:
-    cmd: python src/train.py
+    cmd: python houses/train.py
     deps:
-    - src/train.py
+    - houses/train.py
     - data/model_input/x_train.csv
     - data/model_input/y_train.csv
     outs:
     - data/models/model.pickle
  
   evaluate:
-    cmd: python src/evaluate.py
+    cmd: python houses/evaluate.py
     deps:
-    - src/evaluate.py
+    - houses/evaluate.py
     - data/model_input/x_train.csv
     - data/model_input/y_train.csv
     - data/model_input/X_test.csv
