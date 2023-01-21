@@ -5,3 +5,4 @@ seaborn
 numpy
 plotnine
 pytest
+pytest-cov

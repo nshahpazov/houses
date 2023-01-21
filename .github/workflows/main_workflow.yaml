@@ -6,10 +6,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
-      - uses: iterative/setup-cml@v1
-      - name: Run tests
+      # - uses: iterative/setup-cml@v1
+      - name: Run tests and build coverage
         env:
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pip install -r requirements.txt
-          python -m pytest
+          python -m pytest --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=app tests/ | tee pytest-coverage.txt
+      - name: Pytest coverage comment
+        uses: MishaKav/pytest-coverage-comment@main
+        with:
+          pytest-coverage-path: ./pytest-coverage.txt
+          junitxml-path: ./pytest.xml
