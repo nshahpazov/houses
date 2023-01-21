@@ -16,15 +16,5 @@ jobs:
         uses: MishaKav/pytest-coverage-comment@main
         with:
           pytest-coverage-path: pytest-coverage.txt
-          pytest-xml-coverage-path: pytest-coverage.txt
-          title: My Coverage Report Title
-          badge-title: My Badge Coverage Title
-          hide-badge: false
-          hide-report: false
-          create-new-comment: false
-          hide-comment: false
-          report-only-changed-files: false
-          remove-link-from-badge: false
-          unique-id-for-comment: python3.8
           junitxml-path: pytest.xml
-          junitxml-title: My JUnit Xml Summary Title
+          badge-title: Coverage
