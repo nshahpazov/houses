@@ -18,3 +18,9 @@ jobs:
           pytest-coverage-path: pytest-coverage.txt
           junitxml-path: pytest.xml
           badge-title: Coverage
+      - uses: psf/black@stable
+      with:
+        options: "--check --verbose"
+        src: "./houses"
+        jupyter: true
+        version: "21.5b1"
