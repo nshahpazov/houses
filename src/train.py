@@ -5,7 +5,7 @@ import pickle
 import pandas as pd
 import pathlib
 from typing import Union
-from sklearn.linear_model import Lasso
+from sklearn.linear_model import Lasso, LinearRegression
 from sklearn.compose import TransformedTargetRegressor, ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -37,7 +37,7 @@ __ordinal_encoder = OrdinalEncoder(
 @click.argument(
     'model_output_filepath',
     type=click.Path(),
-    default=constants.DEFAULT_MODEL_OUTPUT_PATH,
+    default=constants.DEFAULT_MODEL_PATH,
 )
 @click.option(
     '--model_seed',
@@ -73,7 +73,7 @@ def train(
         categoricals=categoricals,
         numericals=numericals,
         # TODO: parameterize this as well
-        alpha=0.5,
+        alpha=0,
         model_seed=model_seed,
     )
 
@@ -119,7 +119,7 @@ def create_lasso_pipeline(rare_threshold, categoricals, numericals, alpha, model
         steps=[
             ('column_transformations', all_transformations),
             ('lasso_and_target_transform', TransformedTargetRegressor(
-                regressor=Lasso(alpha=alpha, random_state=model_seed),
+                regressor=LinearRegression(),
                 transformer=response_variable_pipeline,
             )),
         ]

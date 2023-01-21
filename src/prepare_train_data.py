@@ -45,13 +45,13 @@ def prepare(
             X, y, train_size=train_size, random_state=split_seed
         )
         # TODO: use parameterized filenames
-        X_train.to_csv("data/model_input/x_train.csv")
-        X_test.to_csv("data/model_input/x_test.csv")
-        y_train.to_csv("data/model_input/y_train.csv")
-        y_test.to_csv("data/model_input/y_test.csv")
+        X_train.to_csv("data/model_input/x_train.csv", index=False)
+        X_test.to_csv("data/model_input/x_test.csv", index=False)
+        y_train.to_csv("data/model_input/y_train.csv", index=False)
+        y_test.to_csv("data/model_input/y_test.csv", index=False)
     else:
-        X.to_csv("data/model_input/x_train_final.csv")
-        y.to_csv("data/model_input/y_train_final.csv")
+        X.to_csv("data/model_input/x_train_final.csv", index=False)
+        y.to_csv("data/model_input/y_train_final.csv", index=False)
 
 
 if __name__ == "__main__":

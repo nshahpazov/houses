@@ -106,7 +106,8 @@ NUMERICAL_COLUMNS = [
 
 # training
 DEFAULT_TRAIN_INPUT_PATH = "data/interim/train.csv"
-DEFAULT_MODEL_OUTPUT_PATH = "data/models/model.pickle"
+DEFAULT_MODEL_PATH = "data/models/model.pickle"
+
 
 # default params
 DEFAULT_REDUNDANT_COLUMNS_THRESHOLD = 0.9
