@@ -18,6 +18,8 @@ jobs:
           pytest-coverage-path: pytest-coverage.txt
           junitxml-path: pytest.xml
           badge-title: Coverage
+      name: install black
+        run: pip install black==22.3.0
       - uses: psf/black@stable
         with:
           options: "--check --verbose"
