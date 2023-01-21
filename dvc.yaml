@@ -27,3 +27,16 @@ stages:
     outs:
     - data/models/model.pickle
  
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - src/evaluate.py
+    - data/model_input/x_train.csv
+    - data/model_input/y_train.csv
+    - data/model_input/X_test.csv
+    - data/model_input/y_test.csv
+    outs:
+    - data/model_output/metrics.txt
+    - data/model_output/permutation_feature_importance.png
+
+ 

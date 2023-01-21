@@ -20,34 +20,59 @@ stages:
     cmd: python src/prepare_train_data.py --train_size=0.9
     deps:
     - path: src/prepare_train_data.py
-      md5: d5cdc13b56dd56a107b1eced3a075925
-      size: 1568
+      md5: dad7f4a8dfff10ce5ae5a9c45f487907
+      size: 1646
     outs:
     - path: data/model_input/x_test.csv
-      md5: cd95cad3643864f98fe413600fd84920
-      size: 45729
+      md5: b771aa62c7bc03f55e950d2c89a9415f
+      size: 45111
     - path: data/model_input/x_train.csv
-      md5: 9bfeaccec2b3e1017722faed3441c831
-      size: 405726
+      md5: 1f0b5ee7b93dd0d625860e8a720898b7
+      size: 400152
     - path: data/model_input/y_test.csv
-      md5: 5f0eb675df303fae4b219fec5f87072c
-      size: 1636
+      md5: 863ce33a3043d25384f88543f9368d3c
+      size: 1018
     - path: data/model_input/y_train.csv
-      md5: d65199fe5fd06e645ab7ad566e2eab94
-      size: 14682
+      md5: b8fae22acabf88437c382094dbdad842
+      size: 9108
   train:
     cmd: python src/train.py
     deps:
     - path: data/model_input/x_train.csv
-      md5: 9bfeaccec2b3e1017722faed3441c831
-      size: 405726
+      md5: 1f0b5ee7b93dd0d625860e8a720898b7
+      size: 400152
     - path: data/model_input/y_train.csv
-      md5: d65199fe5fd06e645ab7ad566e2eab94
-      size: 14682
+      md5: b8fae22acabf88437c382094dbdad842
+      size: 9108
     - path: src/train.py
-      md5: 1572821c65e8595feeac2fbcd726fec1
-      size: 4012
+      md5: 929c52a037b7a60671f03264fdf827e3
+      size: 3996
     outs:
     - path: data/models/model.pickle
-      md5: 2ae85866e7bea80b854c49ae03712cd1
-      size: 26743
+      md5: bcf7cdf2e581394d61f0fe959d017996
+      size: 26395
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: data/model_input/X_test.csv
+      md5: b771aa62c7bc03f55e950d2c89a9415f
+      size: 45111
+    - path: data/model_input/x_train.csv
+      md5: 1f0b5ee7b93dd0d625860e8a720898b7
+      size: 400152
+    - path: data/model_input/y_test.csv
+      md5: 863ce33a3043d25384f88543f9368d3c
+      size: 1018
+    - path: data/model_input/y_train.csv
+      md5: b8fae22acabf88437c382094dbdad842
+      size: 9108
+    - path: src/evaluate.py
+      md5: ab925ccace6f68e5dcc495d63464d09b
+      size: 3168
+    outs:
+    - path: data/model_output/metrics.txt
+      md5: e58a651e861c2e710a016b64ad1cd3f6
+      size: 66
+    - path: data/model_output/permutation_feature_importance.png
+      md5: 836f064cf83ae3316f37dffcac1aa06f
+      size: 108007

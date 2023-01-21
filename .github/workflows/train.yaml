@@ -12,6 +12,8 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pip install -r requirements.txt
+          dvc pull
+          dvc repro
           python train.py
           echo "### Metrics: " > report.md
           cat metrics.txt >> report.md
