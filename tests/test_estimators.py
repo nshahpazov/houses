@@ -27,3 +27,7 @@ def test_rare_categories_replacer_small_threshold():
     has_replaced = (X[is_letters].index == Xt_df[is_rare].index).all()
 
     assert has_replaced
+
+
+def test_fail():
+    assert 3 < 2
