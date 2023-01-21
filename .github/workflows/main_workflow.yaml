@@ -24,3 +24,7 @@ jobs:
           src: "./houses"
           jupyter: true
           version: "21.5b1"
+
+      - name: Run Pylint
+        run: |
+          python lint.py --path houses --threshold 2
