@@ -84,7 +84,7 @@ def generate_feature_importance_plot(model, X_val: pd.DataFrame, y_val: pd.Serie
         "variable": X_val.columns,
     })
 
-    above_0_importances_df = mean_importances_df[mean_importances_df["importance"] > 1000]
+    above_0_importances_df = mean_importances_df[mean_importances_df["importance"] > 1001]
     above_0_importance_columns = above_0_importances_df["variable"]
 
     importances_plot = (importances_df[above_0_importance_columns]
