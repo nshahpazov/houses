@@ -1,4 +1,4 @@
-click==8.0.2
+click
 black==22.3.0
 pandas
 scikit-learn
