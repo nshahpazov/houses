@@ -3,8 +3,7 @@ stages:
     cmd: python ./houses/preprocess.py data/raw/train.csv data/interim/train.csv &
          python ./houses/preprocess.py data/raw/test.csv data/interim/test.csv
     deps:
-    - src/preprocess.py
-    - Makefile
+    - houses/preprocess.py
     outs:
     - data/interim/train.csv
     - data/interim/test.csv

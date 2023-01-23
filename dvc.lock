@@ -1,14 +1,12 @@
 schema: '2.0'
 stages:
   preprocess:
-    cmd: make preprocess
+    cmd: python ./houses/preprocess.py data/raw/train.csv data/interim/train.csv &
+      python ./houses/preprocess.py data/raw/test.csv data/interim/test.csv
     deps:
-    - path: Makefile
-      md5: d62e8f95735ef3490994afb103c42617
-      size: 247
-    - path: src/preprocess.py
-      md5: 69d0ba0ba335473fdd07c282d89a556c
-      size: 2522
+    - path: houses/preprocess.py
+      md5: 4912e2381d21f71648768603295c6d17
+      size: 2485
     outs:
     - path: data/interim/test.csv
       md5: 5e5b90a0bc68c27f29a012186dec431d
@@ -17,11 +15,11 @@ stages:
       md5: 716cb9dd6ef32bd6cee097cb71ffc3c2
       size: 460771
   prepare_train_data:
-    cmd: python src/prepare_train_data.py --train_size=0.9
+    cmd: python houses/prepare_train_data.py --train_size=0.9
     deps:
-    - path: src/prepare_train_data.py
-      md5: dad7f4a8dfff10ce5ae5a9c45f487907
-      size: 1646
+    - path: houses/prepare_train_data.py
+      md5: 9e387ca89a2a2a45f4ed1f75a265fd49
+      size: 1662
     outs:
     - path: data/model_input/x_test.csv
       md5: b771aa62c7bc03f55e950d2c89a9415f
@@ -36,7 +34,7 @@ stages:
       md5: b8fae22acabf88437c382094dbdad842
       size: 9108
   train:
-    cmd: python src/train.py
+    cmd: python houses/train.py
     deps:
     - path: data/model_input/x_train.csv
       md5: 1f0b5ee7b93dd0d625860e8a720898b7
@@ -44,15 +42,15 @@ stages:
     - path: data/model_input/y_train.csv
       md5: b8fae22acabf88437c382094dbdad842
       size: 9108
-    - path: src/train.py
-      md5: 929c52a037b7a60671f03264fdf827e3
-      size: 3996
+    - path: houses/train.py
+      md5: d828015502c1da9ff1bc3bb5c3374169
+      size: 4311
     outs:
     - path: data/models/model.pickle
-      md5: bcf7cdf2e581394d61f0fe959d017996
-      size: 26395
+      md5: 4ef8f5e4a20f23f151a0f83d90e0ee29
+      size: 25337
   evaluate:
-    cmd: python src/evaluate.py
+    cmd: python houses/evaluate.py
     deps:
     - path: data/model_input/X_test.csv
       md5: b771aa62c7bc03f55e950d2c89a9415f
@@ -66,13 +64,13 @@ stages:
     - path: data/model_input/y_train.csv
       md5: b8fae22acabf88437c382094dbdad842
       size: 9108
-    - path: src/evaluate.py
-      md5: ab925ccace6f68e5dcc495d63464d09b
-      size: 3168
+    - path: houses/evaluate.py
+      md5: f6a76c0db7cb47b91184189a66bccafb
+      size: 3224
     outs:
     - path: data/model_output/metrics.txt
-      md5: e58a651e861c2e710a016b64ad1cd3f6
+      md5: e9ae8a4ab5885a72cfb1d70dde705835
       size: 66
     - path: data/model_output/permutation_feature_importance.png
-      md5: 836f064cf83ae3316f37dffcac1aa06f
-      size: 108007
+      md5: 8e822707df06edd5455adf2e1695723e
+      size: 39081
