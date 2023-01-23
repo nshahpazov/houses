@@ -18,11 +18,9 @@ jobs:
           pytest-coverage-path: pytest-coverage.txt
           junitxml-path: pytest.xml
           badge-title: Coverage
-      - name: install black
-        run: |
-          pip install black==22.3.0
       - name: run black
         run: |
+          pip install black==22.3.0
           black . --check --line-length 100
       - name: flake8 Lint
         uses: py-actions/flake8@v2
