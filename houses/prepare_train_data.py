@@ -7,22 +7,23 @@ import typing
 
 from sklearn.model_selection import train_test_split
 
+
 @click.command()
 @click.argument(
-    'input_filepath',
+    "input_filepath",
     type=click.Path(exists=True),
     default=constants.DEFAULT_TRAIN_INPUT_PATH,
 )
 @click.option(
-    '--split_seed',
-    'split_seed',
+    "--split_seed",
+    "split_seed",
     required=False,
     default=1,
     help="Splitting seed",
 )
 @click.option(
-    '--train_size',
-    'train_size',
+    "--train_size",
+    "train_size",
     required=False,
     default=constants.DEFAULT_TRAIN_SET_SIZE,
     help="Train set size to be used for the training",

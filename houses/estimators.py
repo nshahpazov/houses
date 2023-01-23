@@ -4,15 +4,16 @@ from sklearn.base import BaseEstimator, TransformerMixin
 import numpy as np
 import pandas as pd
 
+
 class RareCategoriesReplacer(BaseEstimator, TransformerMixin):
     """
     Replaces Categorical Columns rare values with a keyword
     """
-    def __init__(self, threshold=0.05, keyword: str='Other') -> None:
+
+    def __init__(self, threshold=0.05, keyword: str = "Other") -> None:
         self.keyword = keyword
         self.threshold = threshold
         self.proportions = []
-
 
     def get_proportions(self, X):
         """
@@ -21,14 +22,12 @@ class RareCategoriesReplacer(BaseEstimator, TransformerMixin):
         counts = [pd.Series(x).value_counts(normalize=True) for x in X.T]
         return counts
 
-
     def fit(self, X, y=None):
         """Fit the rare categorical transformer"""
         # pylint: disable=unused-argument
         is_df = isinstance(X, pd.DataFrame)
         self.proportions = self.get_proportions(X.values if is_df else X)
         return self
-
 
     def is_to_replace(self, i, col):
         """calculate keywords to replace by a given column"""
@@ -38,7 +37,6 @@ class RareCategoriesReplacer(BaseEstimator, TransformerMixin):
         is_rare = np.isin(col, rares)
         is_new_one = np.isin(col, new_ones)
         return is_rare | is_new_one
-
 
     def transform(self, X) -> pd.DataFrame:
         """Transform the rare categorical transformer"""

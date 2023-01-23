@@ -19,39 +19,36 @@ from sklearn.linear_model import Lasso
 
 __ordinal_encoder = OrdinalEncoder(
     categories=[constants.ORDINALS_ORDERING] * len(constants.ORDINALS),
-    handle_unknown='use_encoded_value',
+    handle_unknown="use_encoded_value",
     unknown_value=-1,
 )
 
+
 @click.command()
 @click.argument(
-    'input_x_filepath',
+    "input_x_filepath",
     type=click.Path(exists=True),
     default=constants.DEFAULT_X_TRAIN_PATH,
 )
 @click.argument(
-    'input_y_filepath',
+    "input_y_filepath",
     type=click.Path(exists=True),
     default=constants.DEFAULT_Y_TRAIN_PATH,
 )
 @click.argument(
-    'model_output_filepath',
+    "model_output_filepath",
     type=click.Path(),
     default=constants.DEFAULT_MODEL_PATH,
 )
 @click.option(
-    '--model_seed',
-    'model_seed',
+    "--model_seed",
+    "model_seed",
     required=False,
     default=constants.DEFAULT_MODEL_SEED,
     help="Regularization model seed",
 )
 @click.option(
-    '--rare_threshold',
-    'rare_threshold',
-    required=False,
-    default=0.05,
-    help="Rare Threshold"
+    "--rare_threshold", "rare_threshold", required=False, default=0.05, help="Rare Threshold"
 )
 def train(
     input_x_filepath: Union[str, pathlib.Path],
@@ -88,40 +85,49 @@ def train(
 def create_lasso_pipeline(rare_threshold, categoricals, numericals, alpha, model_seed):
     """Create a pipeline for the lasso regression"""
 
-    numeric_pipeline = Pipeline([
-        ('impute_with_mean', SimpleImputer(strategy='mean')),
-        ('scaling', StandardScaler()),
-        ('yeo_johnson', PowerTransformer()),
-    ])
+    numeric_pipeline = Pipeline(
+        [
+            ("impute_with_mean", SimpleImputer(strategy="mean")),
+            ("scaling", StandardScaler()),
+            ("yeo_johnson", PowerTransformer()),
+        ]
+    )
 
     # transformations to be applied to categorical features
-    categoric_pipeline = Pipeline([
-        ('replace_rare', RareCategoriesReplacer(rare_threshold)),
-        ('one_hot_encoding', OneHotEncoder()),
-    ])
+    categoric_pipeline = Pipeline(
+        [
+            ("replace_rare", RareCategoriesReplacer(rare_threshold)),
+            ("one_hot_encoding", OneHotEncoder()),
+        ]
+    )
 
     # transformations on the response variable
-    response_variable_pipeline = Pipeline([
-        ('normalization', StandardScaler()),
-        ('yeo_johnson', PowerTransformer()),
-    ])
+    response_variable_pipeline = Pipeline(
+        [
+            ("normalization", StandardScaler()),
+            ("yeo_johnson", PowerTransformer()),
+        ]
+    )
 
     all_transformations = ColumnTransformer(
         transformers=[
-            ('numeriric_transformations', numeric_pipeline, numericals),
-            ('categoric_transformations', categoric_pipeline, categoricals),
-            ('ordinals_encoding', __ordinal_encoder, constants.ORDINALS),
+            ("numeriric_transformations", numeric_pipeline, numericals),
+            ("categoric_transformations", categoric_pipeline, categoricals),
+            ("ordinals_encoding", __ordinal_encoder, constants.ORDINALS),
         ],
-        remainder='passthrough'
+        remainder="passthrough",
     )
 
     pipeline = Pipeline(
         steps=[
-            ('column_transformations', all_transformations),
-            ('lasso_and_target_transform', TransformedTargetRegressor(
-                regressor=LinearRegression(),
-                transformer=response_variable_pipeline,
-            )),
+            ("column_transformations", all_transformations),
+            (
+                "lasso_and_target_transform",
+                TransformedTargetRegressor(
+                    regressor=LinearRegression(),
+                    transformer=response_variable_pipeline,
+                ),
+            ),
         ]
     )
     return pipeline

@@ -9,25 +9,15 @@ import constants
 from estimators import Pandalizer
 
 
-
 @click.command()
 @click.argument(
-    'input_filepath',
-    type=click.Path(exists=True),
-    default=constants.DEFAULT_PREPROCESS_INPUT_PATH
+    "input_filepath", type=click.Path(exists=True), default=constants.DEFAULT_PREPROCESS_INPUT_PATH
 )
 @click.argument(
-    'output_filepath',
-    type=click.Path(),
-    default=constants.DEFAULT_PREPROCESS_OUTPUT_PATH
+    "output_filepath", type=click.Path(), default=constants.DEFAULT_PREPROCESS_OUTPUT_PATH
 )
 @click.option(
-    '-v',
-    '--verbose',
-    'verbose',
-    required=False,
-    default=False,
-    help=constants.VERBOSE_HELP
+    "-v", "--verbose", "verbose", required=False, default=False, help=constants.VERBOSE_HELP
 )
 def preprocess(
     input_filepath: str = constants.DEFAULT_PREPROCESS_INPUT_PATH,
