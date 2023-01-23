@@ -31,7 +31,18 @@ repos:
       - id: flake8
         entry: pflake8
         additional_dependencies: [pyproject-flake8]
-
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: pylint
+        language: system
+        types: [python]
+        args:
+          [
+            "-rn", # Only display messages
+            # "-sn", # Don't display the score
+          ]
   # - repo: https://github.com/john-hen/flake8-pyproject
   #   # alternate to above, however it should work with flake8-pyproject as an additional dep
   #   rev: "1.0.1"

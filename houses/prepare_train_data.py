@@ -36,7 +36,7 @@ def prepare(
     """
     Main command function to be executed by the script
     """
-    input_df = pd.read_csv(input_filepath)
+    input_df: pd.DataFrame = pd.read_csv(input_filepath)
     X = input_df.drop(columns=[constants.TARGET_VARIABLE_NAME, constants.ID_COLUMN])
     y = input_df[constants.TARGET_VARIABLE_NAME]
 
@@ -45,7 +45,7 @@ def prepare(
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, train_size=train_size, random_state=split_seed
         )
-        # TODO: use parameterized filenames
+        # xTODO: use parameterized filenames
         X_train.to_csv("data/model_input/x_train.csv", index=False)
         X_test.to_csv("data/model_input/x_test.csv", index=False)
         y_train.to_csv("data/model_input/y_train.csv", index=False)

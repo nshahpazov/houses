@@ -43,6 +43,7 @@ def evaluate(
     x_test_filepath: Union[str, Path],
     y_test_filepath: Union[str, Path],
 ):
+    """Evaluate model by metrics and interpretation"""
     # load model
     with open(model_input_path, "rb") as openfile:
         model_pipeline = pickle.load(openfile)
@@ -69,6 +70,7 @@ def evaluate(
 
 
 def generate_feature_importance_plot(model, X_val: pd.DataFrame, y_val: pd.Series):
+    """Generate a feature importance plot"""
     scoring = ["neg_mean_squared_error"]
     r_multi = permutation_importance(
         model,

@@ -24,6 +24,8 @@ jobs:
       - name: run black
         run: |
           black . --check --line-length 100
+      - name: flake8 Lint
+        uses: py-actions/flake8@v2
       - name: Run Pylint
         run: |
-          python lint.py --path houses --threshold 2
+          python lint.py --path houses --threshold 8

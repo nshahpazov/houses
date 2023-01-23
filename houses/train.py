@@ -11,7 +11,7 @@ from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
 from sklearn.impute import SimpleImputer
 
 # modeling
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Lasso
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import (
     OneHotEncoder,
@@ -51,6 +51,13 @@ __ordinal_encoder = OrdinalEncoder(
     help="Regularization model seed",
 )
 @click.option(
+    "--alpha",
+    "alpha",
+    required=False,
+    default=constants.DEFAULT_LASSO_ALPHA,
+    help="Regularization alpha",
+)
+@click.option(
     "--rare_threshold",
     "rare_threshold",
     required=False,
@@ -62,6 +69,7 @@ def train(
     input_y_filepath: Union[str, pathlib.Path],
     model_output_filepath: Union[str, pathlib.Path],
     model_seed: int,
+    alpha: float,
     rare_threshold: float,
 ) -> None:
     X_train = pd.read_csv(input_x_filepath)
@@ -76,9 +84,8 @@ def train(
         rare_threshold=rare_threshold,
         categoricals=categoricals,
         numericals=numericals,
-        # TODO: parameterize this as well
-        alpha=0,
         model_seed=model_seed,
+        alpha=alpha,
     )
 
     # fit the train pipeline
@@ -89,7 +96,13 @@ def train(
         pickle.dump(train_pipeline, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-def create_lasso_pipeline(rare_threshold, categoricals, numericals, alpha, model_seed):
+def create_lasso_pipeline(
+    rare_threshold: float,
+    categoricals: list[str],
+    numericals: list[str],
+    model_seed: float,
+    alpha: float,
+):
     """Create a pipeline for the lasso regression"""
 
     numeric_pipeline = Pipeline(
@@ -131,7 +144,7 @@ def create_lasso_pipeline(rare_threshold, categoricals, numericals, alpha, model
             (
                 "lasso_and_target_transform",
                 TransformedTargetRegressor(
-                    regressor=LinearRegression(),
+                    regressor=Lasso(random_state=model_seed, alpha=alpha),
                     transformer=response_variable_pipeline,
                 ),
             ),
