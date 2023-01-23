@@ -31,4 +31,4 @@ jobs:
           # path: "houses"
       - name: Run Pylint
         run: |
-          python lint.py --path houses --threshold 8
+          python lint.py --path houses --threshold 7

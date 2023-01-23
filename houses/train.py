@@ -72,6 +72,7 @@ def train(
     alpha: float,
     rare_threshold: float,
 ) -> None:
+    """Train a model by a given input X and y filepaths"""
     X_train = pd.read_csv(input_x_filepath)
     y_train = pd.read_csv(input_y_filepath)
     # all kind of steps. cross-validation, regularization, feature selection, hyperparameter tuning
