@@ -1,12 +1,12 @@
 """The main definition of our preprocessing steps"""
-import pandas as pd
-import numpy as np
 import click
+import constants
+import numpy as np
+import pandas as pd
+from estimators import Pandalizer
+from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer
-from sklearn.impute import SimpleImputer
-import constants
-from estimators import Pandalizer
 
 
 @click.command()

@@ -1,8 +1,8 @@
 """Helper classes for transforming datasets in some way"""
 
-from sklearn.base import BaseEstimator, TransformerMixin
 import numpy as np
 import pandas as pd
+from sklearn.base import BaseEstimator, TransformerMixin
 
 
 class RareCategoriesReplacer(BaseEstimator, TransformerMixin):
@@ -10,7 +10,11 @@ class RareCategoriesReplacer(BaseEstimator, TransformerMixin):
     Replaces Categorical Columns rare values with a keyword
     """
 
-    def __init__(self, threshold=0.05, keyword: str = "Other") -> None:
+    proportions: list
+    threshold: float
+    keyword: str
+
+    def __init__(self, threshold: float = 0.05, keyword: str = "Other") -> None:
         self.keyword = keyword
         self.threshold = threshold
         self.proportions = []

@@ -1,15 +1,13 @@
 """Evaluation module"""
-import matplotlib.pyplot as plt
 import pickle
-from sklearn.inspection import permutation_importance
 from pathlib import Path
 from typing import Union
+
 import click
 import constants as constants
 import pandas as pd
-from plotnine import ggplot, aes, xlab, ylab, ggtitle, geom_bar, coord_flip, geom_boxplot, theme
-import seaborn as sns
-import numpy as np
+from plotnine import aes, coord_flip, geom_boxplot, ggplot, theme
+from sklearn.inspection import permutation_importance
 
 
 @click.command()

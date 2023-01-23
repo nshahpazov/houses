@@ -1,21 +1,24 @@
 """Train module"""
+import pathlib
+import pickle
+from typing import Union
+
 import click
 import constants
-import pickle
 import pandas as pd
-import pathlib
-from typing import Union
-from sklearn.linear_model import Lasso, LinearRegression
-from sklearn.compose import TransformedTargetRegressor, ColumnTransformer
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.preprocessing import PowerTransformer, OneHotEncoder
-from sklearn.preprocessing import OrdinalEncoder
-from sklearn.impute import SimpleImputer
 from estimators import RareCategoriesReplacer
+from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
+from sklearn.impute import SimpleImputer
 
 # modeling
-from sklearn.linear_model import Lasso
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import (
+    OneHotEncoder,
+    OrdinalEncoder,
+    PowerTransformer,
+    StandardScaler,
+)
 
 __ordinal_encoder = OrdinalEncoder(
     categories=[constants.ORDINALS_ORDERING] * len(constants.ORDINALS),
@@ -48,7 +51,11 @@ __ordinal_encoder = OrdinalEncoder(
     help="Regularization model seed",
 )
 @click.option(
-    "--rare_threshold", "rare_threshold", required=False, default=0.05, help="Rare Threshold"
+    "--rare_threshold",
+    "rare_threshold",
+    required=False,
+    default=0.05,
+    help="Rare Threshold",
 )
 def train(
     input_x_filepath: Union[str, pathlib.Path],

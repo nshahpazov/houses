@@ -18,7 +18,7 @@ stages:
     - data/model_input/y_train.csv
     - data/model_input/x_test.csv
     - data/model_input/y_test.csv
-  
+
   train:
     cmd: python houses/train.py
     deps:
@@ -27,7 +27,7 @@ stages:
     - data/model_input/y_train.csv
     outs:
     - data/models/model.pickle
- 
+
   evaluate:
     cmd: python houses/evaluate.py
     deps:
@@ -39,5 +39,3 @@ stages:
     outs:
     - data/model_output/metrics.txt
     - data/model_output/permutation_feature_importance.png
-
- 
