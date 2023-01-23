@@ -26,6 +26,9 @@ jobs:
           black . --check --line-length 100
       - name: flake8 Lint
         uses: py-actions/flake8@v2
+        with:
+          max-line-length: "100"
+          path: ["houses", "test"]
       - name: Run Pylint
         run: |
           python lint.py --path houses --threshold 8
