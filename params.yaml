@@ -1,4 +1,0 @@
-prepare:
-  input_filepath: "data/interim/train.csv"
-  train_size: 0.80
-  split_seed: 20230123

@@ -1,7 +1,7 @@
 """Testing custom estimators module"""
 import pandas as pd
 
-from houses.estimators import RareCategoriesReplacer, Pandalizer
+from houses.estimators import Pandalizer, RareCategoriesReplacer
 
 
 def test_rare_categories_replacer_big_threshold():

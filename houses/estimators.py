@@ -77,7 +77,7 @@ class Pandalizer(BaseEstimator, TransformerMixin):
         source_types = dataframe.loc[:, self.columns].dtypes.to_dict()
         source_type_names = {key: dtype.name for key, dtype in source_types.items()}
         Xt_df = pd.DataFrame(Xt, columns=self.columns).astype(source_type_names)
-        dataframe[self.columns] = Xt
+        dataframe[self.columns] = Xt_df
         return dataframe
 
     def fit_transform(self, X, y=None, columns=None, **fit_args):
