@@ -55,12 +55,12 @@ stages:
       md5: b8fae22acabf88437c382094dbdad842
       size: 9108
     - path: houses/train.py
-      md5: d828015502c1da9ff1bc3bb5c3374169
+      md5: 19cd14ac9787faec601aa6fa0b411d6b
       size: 4311
     outs:
     - path: data/models/model.pickle
-      md5: 4ef8f5e4a20f23f151a0f83d90e0ee29
-      size: 25337
+      md5: 245296115898fedbdc792eddcf61d498
+      size: 25212
   evaluate:
     cmd: python houses/evaluate.py
     deps:
@@ -77,15 +77,15 @@ stages:
       md5: b8fae22acabf88437c382094dbdad842
       size: 9108
     - path: data/models/model.pickle
-      md5: 4ef8f5e4a20f23f151a0f83d90e0ee29
-      size: 25337
+      md5: 245296115898fedbdc792eddcf61d498
+      size: 25212
     - path: houses/evaluate.py
       md5: f6a76c0db7cb47b91184189a66bccafb
       size: 3224
     outs:
     - path: data/model_output/metrics.txt
-      md5: e9ae8a4ab5885a72cfb1d70dde705835
+      md5: e58a651e861c2e710a016b64ad1cd3f6
       size: 66
     - path: data/model_output/permutation_feature_importance.png
-      md5: 8e822707df06edd5455adf2e1695723e
-      size: 39081
+      md5: d3213d5750c57814c0f23d49da8668a6
+      size: 103613
