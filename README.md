@@ -17,3 +17,11 @@ To test the pipeline run
 dvc pull
 dvc repro --force
 ```
+
+
+Get the data
+
+```bash
+dvc get https://github.com/nshahpazov/houses \
+          data/raw/train.csv -o train.csv
+```
