@@ -38,3 +38,7 @@ def test_pandalizer():
     transformed_df = pandalizer.fit_transform(dataframe)
     assert transformed_df.columns == dataframe.columns
     assert isinstance(transformed_df, pd.DataFrame)
+
+
+def test_example():
+    assert 3 == 3

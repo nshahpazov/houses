@@ -1,3 +1,4 @@
+"""Linting module for CI, CD checks"""
 import argparse
 import logging
 import sys
@@ -25,22 +26,22 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
-path = str(args.path)
+PATH = str(args.path)
 threshold = float(args.threshold)
 
-logging.info("PyLint Starting | " "Path: %s | " "Threshold: %.2f " % (path, threshold))
+logging.info("PyLint Starting | " "Path: %s | " "Threshold: %.2f " % (PATH, threshold))
 
-results = Run([path], do_exit=False)
+results = Run([PATH], do_exit=False)
 
 final_score = results.linter.stats["global_note"]
 
 if final_score < threshold:
 
-    MESSAGE = "PyLint Failed | " "Score: {} | " "Threshold: {} ".format(final_score, threshold)
+    MESSAGE = "PyLint Failed | " "Score: %.2f | " "Threshold: %.2f " % (final_score, threshold)
 
     logging.error(MESSAGE)
     raise Exception(MESSAGE)
 
-MESSAGE = "PyLint Passed | " "Score: {} | " "Threshold: {} ".format(final_score, threshold)
+MESSAGE = "PyLint Passed | " "Score: %.2f | " "Threshold: %.2f" % (final_score, threshold)
 logging.info(MESSAGE)
 sys.exit(0)
