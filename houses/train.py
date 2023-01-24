@@ -11,7 +11,7 @@ from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
 from sklearn.impute import SimpleImputer
 
 # modeling
-from sklearn.linear_model import Lasso
+from sklearn.linear_model import Ridge
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import (
     OneHotEncoder,
@@ -145,7 +145,7 @@ def create_lasso_pipeline(
             (
                 "lasso_and_target_transform",
                 TransformedTargetRegressor(
-                    regressor=Lasso(random_state=model_seed, alpha=alpha),
+                    regressor=Ridge(random_state=model_seed, alpha=alpha),
                     transformer=response_variable_pipeline,
                 ),
             ),
