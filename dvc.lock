@@ -14,6 +14,9 @@ stages:
       md5: 4912e2381d21f71648768603295c6d17
       size: 2485
     outs:
+    - path: data/interim/test.csv
+      md5: 5e5b90a0bc68c27f29a012186dec431d
+      size: 475151
     - path: data/interim/train.csv
       md5: 716cb9dd6ef32bd6cee097cb71ffc3c2
       size: 460771
@@ -73,6 +76,9 @@ stages:
     - path: data/model_input/y_train.csv
       md5: b8fae22acabf88437c382094dbdad842
       size: 9108
+    - path: data/models/model.pickle
+      md5: 4ef8f5e4a20f23f151a0f83d90e0ee29
+      size: 25337
     - path: houses/evaluate.py
       md5: f6a76c0db7cb47b91184189a66bccafb
       size: 3224
