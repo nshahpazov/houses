@@ -1,14 +1,15 @@
 import pandas as pd
-from houses.estimators import RareCategoriesReplacer
 
+from houses.estimators import RareCategoriesReplacer
 
 
 def test_rare_categories_replacer_big_threshold():
     rare_categories_replacer = RareCategoriesReplacer(threshold=0.90)
     X = pd.DataFrame({"category": pd.Categorical(["a", "b", "c", "a", "a", "a"])})
     Xt = rare_categories_replacer.fit_transform(X)
-    all_are_other = (Xt[:,0] == "Other").all()    
+    all_are_other = (Xt[:, 0] == "Other").all()
     assert all_are_other
+
 
 def test_rare_categories_replacer_small_threshold():
     rare_categories_replacer = RareCategoriesReplacer(threshold=0.1, keyword="Arnold")

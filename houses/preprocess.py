@@ -1,33 +1,23 @@
 """The main definition of our preprocessing steps"""
-import pandas as pd
-import numpy as np
 import click
+import constants
+import numpy as np
+import pandas as pd
+from estimators import Pandalizer
+from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import FunctionTransformer
-from sklearn.impute import SimpleImputer
-import constants
-from estimators import Pandalizer
-
 
 
 @click.command()
 @click.argument(
-    'input_filepath',
-    type=click.Path(exists=True),
-    default=constants.DEFAULT_PREPROCESS_INPUT_PATH
+    "input_filepath", type=click.Path(exists=True), default=constants.DEFAULT_PREPROCESS_INPUT_PATH
 )
 @click.argument(
-    'output_filepath',
-    type=click.Path(),
-    default=constants.DEFAULT_PREPROCESS_OUTPUT_PATH
+    "output_filepath", type=click.Path(), default=constants.DEFAULT_PREPROCESS_OUTPUT_PATH
 )
 @click.option(
-    '-v',
-    '--verbose',
-    'verbose',
-    required=False,
-    default=False,
-    help=constants.VERBOSE_HELP
+    "-v", "--verbose", "verbose", required=False, default=False, help=constants.VERBOSE_HELP
 )
 def preprocess(
     input_filepath: str = constants.DEFAULT_PREPROCESS_INPUT_PATH,

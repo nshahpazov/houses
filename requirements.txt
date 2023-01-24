@@ -1,3 +1,5 @@
+click
+# black==22.3.0
 pandas
 scikit-learn
 matplotlib
@@ -5,3 +7,5 @@ seaborn
 numpy
 plotnine
 pytest
+pytest-cov
+pylint==2.10.0
