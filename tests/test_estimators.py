@@ -1,6 +1,7 @@
+"""Testing custom estimators module"""
 import pandas as pd
 
-from houses.estimators import RareCategoriesReplacer
+from houses.estimators import RareCategoriesReplacer, Pandalizer
 
 
 def test_rare_categories_replacer_big_threshold():
@@ -28,3 +29,12 @@ def test_rare_categories_replacer_small_threshold():
     has_replaced = (X[is_letters].index == Xt_df[is_rare].index).all()
 
     assert has_replaced
+
+
+def test_pandalizer():
+    rare_replacer = RareCategoriesReplacer()
+    dataframe = pd.DataFrame({"x": pd.Categorical(list("abcdddaabbccfggyjhhuj"))})
+    pandalizer = Pandalizer(rare_replacer)
+    transformed_df = pandalizer.fit_transform(dataframe)
+    assert transformed_df.columns == dataframe.columns
+    assert isinstance(transformed_df, pd.DataFrame)
